@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import Copyright from '../core/Copyright';
+
 
 import Layout from '../core/Layout';
 import { signup } from '../auth';
@@ -56,8 +56,9 @@ export default function Signup() {
   };
 
   const googleSuccess=(name,email)=>{
-    setValues({ ...values, error: false });
-    signup({ name, email, password }).then((data) => {
+    setValues({ ...values,password:"password1", error: false });
+    signup({ name, email, password:"password1"}).then((data) => {
+      console.log(data)
       if (data.error) {
         setValues({ ...values, error: data.error, success: false });
       } else {
@@ -68,7 +69,7 @@ export default function Signup() {
           password: '',
           error: '',
           success: true,
-        });
+        })
   }})}
 
   const clickSubmit = (event) => {
@@ -163,7 +164,7 @@ export default function Signup() {
                 type='password'
                 id='password'
                 onChange={handleChange('password')}
-                type='password'
+                
                 value={password}
                 autoComplete='current-password'
               />
@@ -209,7 +210,7 @@ export default function Signup() {
       className='container col-md-8 offset-md-2'
     >
       {signUpForm()}
-      <Copyright />
+      
     </Layout>
   );
 }

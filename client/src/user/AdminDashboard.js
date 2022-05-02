@@ -2,7 +2,8 @@ import React from 'react';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
 import { Link } from 'react-router-dom';
-
+import {Line} from "react-chartjs-2"
+import Stats from '../admin/Stats';
 const AdminDashboard = () => {
   const {
     user: { _id, name, email, role },
@@ -18,21 +19,23 @@ const AdminDashboard = () => {
               Create category
             </Link>
           </li>
-          <li className='list-group-item'>
-            <Link className='nav-link' to='/create/product'>
-              Create product
-            </Link>
-          </li>
-          <li className='list-group-item'>
-            <Link className='nav-link' to='/admin/orders'>
-              View Orders
-            </Link>
-          </li>
+                    
           <li className='list-group-item'>
             <Link className='nav-link' to='/admin/products'>
               Manage Products
             </Link>
           </li>
+          <li className='list-group-item'>
+            <Link className='nav-link' to='/admin/users'>
+              Manage Users
+            </Link>
+          </li>
+          {/* <li className='list-group-item'>
+            <Link className='nav-link' to='/admin/stats'>
+              Statistics
+            </Link>
+          </li> */}
+
         </ul>
       </div>
     );
@@ -62,6 +65,10 @@ const AdminDashboard = () => {
       <div className='row'>
         <div className='col-md-3'>{adminLinks()}</div>
         <div className='col-md-9'>{adminInfo()}</div>
+      </div>
+      <div className="stats">
+        
+
       </div>
     </Layout>
   );

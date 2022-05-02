@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     [theme.breakpoints.up('sm')]: {
       display: 'block',
+      
     },
   },
   search: {
@@ -174,7 +175,7 @@ const MaterialAppBar = ({ history }) => {
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>
-            Cart
+            WishList
           </Link>
         </MenuItem>
 
@@ -264,8 +265,8 @@ const MaterialAppBar = ({ history }) => {
             </IconButton>
           </a>
           <a href='/' style={{ color: '#ffffff', textDecoration: 'none' }}>
-            <Typography className={classes.title} variant='h6' noWrap>
-              BRAND
+            <Typography className={classes.title} variant='h5' noWrap>
+              BUY and SELL @ BPHC
             </Typography>
           </a>
 
@@ -290,7 +291,7 @@ const MaterialAppBar = ({ history }) => {
                 <Badge badgeContent={itemTotal()} color='secondary'>
                   <ShoppingCartIcon />
                 </Badge>
-                <Typography noWrap>Cart</Typography>
+                <Typography noWrap>Wishlist</Typography>
               </IconButton>
             </Link>
 

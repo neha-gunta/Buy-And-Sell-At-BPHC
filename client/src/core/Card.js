@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import ShowImage from './ShowImage';
 import moment from 'moment';
-
+import { API } from '../config';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CameraIcon from '@material-ui/icons/PhotoCamera';
@@ -19,8 +19,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { read, sendMail } from './apiCore';
+
+import { isAuthenticated } from '../auth';
 
 import { addItem, updateItem, removeItem } from './cartHelpers';
+import Axios from 'axios';
+
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -45,11 +50,9 @@ const useStyles = makeStyles((theme) => ({
   cardMedia: {
     paddingTop: '56.25%', // 16:9
   },
-  cardContent: {
-    flexGrow: 1,
-  },
+  
   productDescription: {
-    height: '100px',
+    height: '70px',
   },
   footer: {
     backgroundColor: theme.palette.background.paper,
@@ -59,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Card = ({
   product,
+  showInterestedButton=true,
   showViewProductButton = true,
   showAddToCartButton = true,
   cartUpdate = false,
@@ -68,13 +72,16 @@ const Card = ({
 }) => {
   const [redirect, setRedirect] = useState(false);
   const [count, setCount] = useState(product.count);
+  
+  const { user, token } = isAuthenticated();
+ 
 
   const showViewButton = (showViewProductButton) => {
     return (
       showViewProductButton && (
-        <div style={{margin:"5px"}}>
+        <div style={{marginBottom:"5px"}} >
         <Link href={`/product/${product._id}`} className='mr-3'>
-          <Button variant='contained' color='primary'>
+          <Button variant='contained' color='info' fullWidth="true">
             View Product
           </Button>
         </Link></div>
@@ -82,11 +89,51 @@ const Card = ({
     );
   };
 
+ 
+
+
   const addToCart = () => {
     // console.log('added');
     addItem(product, setRedirect(true));
   };
 
+  const Interested=(e)=>{
+    e.preventDefault()
+    const buyermail=user.email;
+    const Buyername=user.name;
+    console.log({
+      buyermail,
+      Buyername,
+      productName:product.name,
+      sellerID:product.PostOwner
+    })
+    Axios.post(`${API}/product/interested/${product._id}`,{
+      buyermail,
+      Buyername,
+      productName:product.name,
+      sellerID:product.PostOwner,
+      BuyerID:user._id
+    }).then((resp)=>{
+      console.log(resp)
+      if (resp.data=="success") alert("Seller has been notified!")
+      else console.log(resp);
+    }
+    )
+    const data={
+      buyermail,
+      Buyername,
+      productName:product.name,
+      sellerID:product.PostOwner
+    }
+    // const id=product._id
+    // sendMail(data,id,token).then((resp)=>{
+    //     console.log(resp)
+    //     if (resp=="success") alert("Seller has been notified!")
+    //     else console.log(resp);
+    //   }
+    //   )
+
+  }
   const shouldRedirect = (redirect) => {
     if (redirect) {
       return <Redirect to='/cart' />;
@@ -96,13 +143,27 @@ const Card = ({
   const showAddToCartBtn = (showAddToCartButton) => {
     return (
       showAddToCartButton && (
-        <Button onClick={addToCart} variant='outlined' color='secondary' startIcon={<FavoriteIcon />}>
+        <Button onClick={addToCart} variant='contained' color='secondary' startIcon={<FavoriteIcon />}>
         {/* <div style={{fontSize:"150%"}}>  &#9829;</div> */}
         WishList
         </Button>
       )
     );
   };
+  const viewShowInterestedButton=(showInterestedButton)=>{
+    return(
+      <>
+      {showInterestedButton && 
+      <div style={{marginTop:"5px"}} >
+        
+          <Button variant='contained' color='primary' fullWidth="true"
+          onClick={Interested}>
+            Interested
+          </Button>
+        </div>
+      }</>
+    )
+  }
 
   const showStock = (quantity) => {
     return quantity > 0 ? (
@@ -188,33 +249,44 @@ const Card = ({
     //     {showCartUpdateOptions(cartUpdate)}
     //   </div>
     // </div>
-
-    <Container className={classes.cardGrid} maxWidth='md'>
+   
+    <Container className={classes.cardGrid} >
       <CssBaseline />
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={12} md={12}>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
+      <Grid item xs={12} sm={12} md={12}>
           <CardM className={classes.card}>
             {shouldRedirect(redirect)}
-            <ShowImage item={product} url='product' />
             <CardContent className={classes.cardContent}>
-              <Typography gutterBottom variant='h5' component='h2'>
+            <Typography gutterBottom variant='h4' component='h2'>
                 {product.name}
               </Typography>
-              <Typography className={classes.productDescription}>{product.description.substring(0, 100)}</Typography>
-              <p className='black-10'>Price: ${product.price}</p>
-              <p className='black-9'>
-                Category: {product.category && product.category.name}{' '}
-              </p>{' '}
-              <p className='black-8'>
-                Added on {moment(product.createdAt).fromNow()}{' '}
+              <p  style={{fontSize:"15px",borderRadius:"10%"}}>
+                Added  {moment(product.createdAt).fromNow()}{' '}
               </p>
+            <ShowImage item={product} url='product' />
+           
+              
+             
+              <p className='black-10' style={{fontSize:"12px",margin:"2px",borderRadius:"10%"}}>
+                Category: {product.category && product.category.name}{' '}
+              </p>
+             
+              <Typography variant="h6" color="text.secondary">
+          Cost: Rs.{product.price}
+        </Typography>
+        <Typography variant="h6" color="text.secondary">
+          Quantity: {product.quantity}{' '}
+        </Typography>
               
               <br></br>
               <span>
+                <span style={{display:"flex", flexDirection:"column",alignItems:"stretch"}}>
                 {showViewButton(showViewProductButton)}
                 
                 {showAddToCartBtn(showAddToCartButton)}
                 {showRemoveButton(showRemoveProductButton)}
+                {viewShowInterestedButton(showInterestedButton)}
+                </span>
               </span>
               {showCartUpdateOptions(cartUpdate)}
             </CardContent>
@@ -222,6 +294,7 @@ const Card = ({
         </Grid>
       </Grid>
     </Container>
+    
   );
 };
 

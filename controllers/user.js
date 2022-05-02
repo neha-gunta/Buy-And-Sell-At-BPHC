@@ -125,3 +125,45 @@ exports.purchaseHistory = (req, res) => {
       res.json(orders);
     });
 };
+
+exports.sample=(req,res,next)=>{
+  console.log(req);
+  req.abc="abcd"
+  next()
+}
+exports.sample1=(req,res,next)=>{
+  console.log(req.abc);
+  next()
+}
+
+exports.getInterested=(req,res)=>{
+  const userId=req.params.userID;
+  User.findById(userId,(err,resp)=>{
+
+    if(err) console.log(err)
+    else{
+      res.send(resp.interested)
+      // console.log(resp.interested)
+    }
+    
+  })
+}
+
+exports.getAllUsers=(req,res)=>{
+  User.find({},(err,resp)=>{
+    if(err) console.log(err)
+    else{
+      res.send(resp)
+      // console.log(resp)
+    }
+  })
+}
+exports.deleteUser=(req,res)=>{
+  User.findByIdAndDelete(req.params.id,(err,resp)=>{
+    if(err) console.log(err)
+    else{
+      res.status(200).send("deleted")
+      // console.log(resp)
+    }
+  })
+}

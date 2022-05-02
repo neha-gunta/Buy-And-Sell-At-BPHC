@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { read, listRelated } from './apiCore';
 import Card from './Card';
+import { isAuthenticated } from '../auth';
 
 const Product = (props) => {
   const [product, setProduct] = useState({});
   const [relatedProduct, setRelatedProduct] = useState([]);
   const [error, setError] = useState(false);
+  // const {
+  //   user: { _id, name, email, role },
+  // } = isAuthenticated();
+  
 
   const loadSingleProduct = (productId) => {
     read(productId).then((data) => {

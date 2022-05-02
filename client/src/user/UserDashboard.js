@@ -35,7 +35,23 @@ const Dashboard = () => {
         <ul className='list-group'>
           <li className='list-group-item'>
             <Link className='nav-link' to='/cart'>
-              My cart
+              My wishlist
+            </Link>
+
+          </li>
+          <li className='list-group-item'>
+            <Link className='nav-link' to='/create/product'>
+              Create product
+            </Link>
+          </li>
+          <li className='list-group-item'>
+            <Link className='nav-link' to='/admin/products'>
+              Manage My Products
+            </Link>
+          </li>
+          <li className='list-group-item'>
+            <Link className='nav-link' to='/user/Interested'>
+              Interested Porducts
             </Link>
           </li>
           <li className='list-group-item'>
@@ -101,7 +117,7 @@ const Dashboard = () => {
         <div className='col-md-3'>{userLinks()}</div>
         <div className='col-md-9'>
           {userInfo()}
-          {purchaseHistory(history)}
+          
         </div>
       </div>
     </Layout>

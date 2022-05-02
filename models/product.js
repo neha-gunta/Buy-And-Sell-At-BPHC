@@ -36,10 +36,16 @@ const productSchema = new mongoose.Schema(
       data: Buffer,
       contentType: String,
     },
-    shipping: {
-      required: false,
-      type: Boolean,
-    },
+    // shipping: {
+    //   required: false,
+    //   type: Boolean,
+    // },
+    PostOwner:{
+      required:true,
+      type:ObjectId,
+      //need to change to true
+      
+    }
   },
   { timestamps: true }
 );

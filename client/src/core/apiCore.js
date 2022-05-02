@@ -121,3 +121,30 @@ export const createOrder = (userId, token, createOrderData) => {
     })
     .catch((err) => console.log(err));
 };
+export const sendMail = (data,id,token) => {
+  return fetch(`${API}/product/interested/${id}`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};
+// `${API}/user/Interested/${user._id}`
+
+export const getInterestedProds = (id) => {
+  
+  return fetch(`${API}/user/Interested/${id}`, {
+    method: 'GET',
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};

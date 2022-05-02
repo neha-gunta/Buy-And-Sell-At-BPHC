@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { createProduct, getCategories } from './apiAdmin';
 
 const AddProduct = () => {
+  const { user, token } = isAuthenticated();
   const [values, setValues] = useState({
     name: '',
     description: '',
@@ -19,9 +20,10 @@ const AddProduct = () => {
     createdProduct: '',
     redirectToProfile: false,
     formData: '',
+    PostOwner:user._id
   });
 
-  const { user, token } = isAuthenticated();
+ 
 
   const {
     name,
@@ -67,7 +69,7 @@ const AddProduct = () => {
   const clickSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, error: '', loading: true });
-
+    formData.set("PostOwner",user._id)
     createProduct(user._id, token, formData).then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error });

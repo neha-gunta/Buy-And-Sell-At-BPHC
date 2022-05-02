@@ -55,9 +55,11 @@ export default function Signin() {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
   const GoogleLoginSuccess=(email)=>{
-    setValues({ ...values,email,error: false, loading: true });
+    setValues({ ...values,email,password:"password1",error: false, loading: true });
     
-    signin({ email, password }).then((data) => {
+    signin({ email, password:"password1"}).then((data) => {
+      console.log(data)
+
       if (data.error) {
         setValues({ ...values, error: data.error, loading: false });
       } else {
@@ -158,7 +160,7 @@ export default function Signin() {
             type='password'
             id='password'
             onChange={handleChange('password')}
-            type='password'
+            
             value={password}
             autoComplete='current-password'
           />

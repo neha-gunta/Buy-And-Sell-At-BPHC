@@ -3,6 +3,7 @@ const _ = require('lodash');
 const fs = require('fs');
 const Product = require('../models/product');
 const { errorHandler } = require('../helpers/dbErrorHandler');
+var mongoose = require('mongoose');
 
 exports.productById = (req, res, next, id) => {
   Product.findById(id)
@@ -26,15 +27,19 @@ exports.read = (req, res) => {
 exports.create = (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
+  
   form.parse(req, (err, fields, files) => {
+    console.log(fields)
     if (err) {
       return res.status(400).json({
         error: 'Image could not be uploaded',
       });
     }
     // check for all fields
-    const { name, description, price, category, quantity, shipping } = fields;
-
+    const { name, description, price, category, quantity, shipping, PostOwner} = fields;
+    const poId=mongoose.Types.ObjectId(PostOwner)
+    fields={...fields,PostOwner:poId}
+    console.log(fields)
     if (
       !name ||
       !description ||
@@ -289,3 +294,5 @@ exports.decreaseQuantity = (req, res, next) => {
     next();
   });
 };
+
+

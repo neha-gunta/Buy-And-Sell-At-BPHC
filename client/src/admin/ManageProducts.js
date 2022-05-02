@@ -8,12 +8,15 @@ const ManageProducts = () => {
   const [products, setProducts] = useState([]);
 
   const { user, token } = isAuthenticated();
-
+console.log(user)
   const loadProducts = () => {
     getProducts().then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {
+        if(user.role==0){
+          data=data.filter((p)=> p.PostOwner==user._id)
+        }        
         setProducts(data);
       }
     });
@@ -53,14 +56,14 @@ const ManageProducts = () => {
                 <Link to={`/admin/product/update/${p._id}`}>
                   <span className='badge badge-warning badge-pill'>Update</span>
                 </Link>
-                <Link>
+                
                   <span
                     onClick={() => destroy(p._id)}
                     className='badge badge-danger badge-pill'
                   >
                     Delete
                   </span>
-                </Link>
+                
               </li>
             ))}
           </ul>

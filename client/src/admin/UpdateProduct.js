@@ -102,6 +102,7 @@ const UpdateProduct = ({ match }) => {
             redirectToProfile: true,
             createdProduct: data.name,
           });
+          alert("Updated Successfully!")
         }
       }
     );

@@ -16,14 +16,17 @@ const {
 } = require('../controllers/product');
 const { requireSignin, isAuth, isAdmin } = require('../controllers/auth');
 const { userById } = require('../controllers/user');
+const { sendMail } = require('../controllers/nodemailer');
+
 
 router.get('/product/:productId', read);
-router.post('/product/create/:userId', requireSignin, isAuth, isAdmin, create);
+router.post("/product/interested/:productId",sendMail)
+router.post('/product/create/:userId', requireSignin, isAuth, create);
 router.delete(
   '/product/:productId/:userId',
   requireSignin,
   isAuth,
-  isAdmin,
+  
   remove
 );
 
@@ -31,7 +34,7 @@ router.put(
   '/product/:productId/:userId',
   requireSignin,
   isAuth,
-  isAdmin,
+  
   update
 );
 
@@ -44,5 +47,7 @@ router.get('/product/photo/:productId', photo);
 
 router.param('userId', userById);
 router.param('productId', productById);
+
+// router.post("/product/:productId",sendMail)
 
 module.exports = router;
