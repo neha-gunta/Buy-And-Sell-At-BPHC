@@ -54,10 +54,10 @@ export default function Signup() {
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
-
+  const p="password1"
   const googleSuccess=(name,email)=>{
-    setValues({ ...values,password:"password1", error: false });
-    signup({ name, email, password:"password1"}).then((data) => {
+    setValues({ ...values,password:p, error: false });
+    signup({ name, email, password:p}).then((data) => {
       console.log(data)
       if (data.error) {
         setValues({ ...values, error: data.error, success: false });

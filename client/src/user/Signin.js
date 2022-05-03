@@ -54,10 +54,11 @@ export default function Signin() {
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
+  const p="password1";
   const GoogleLoginSuccess=(email)=>{
-    setValues({ ...values,email,password:"password1",error: false, loading: true });
+    setValues({ ...values,email,password:p,error: false, loading: true });
     
-    signin({ email, password:"password1"}).then((data) => {
+    signin({ email, password:p}).then((data) => {
       console.log(data)
 
       if (data.error) {
