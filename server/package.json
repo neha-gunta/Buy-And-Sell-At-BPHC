@@ -1,5 +1,5 @@
 {
-  "name": "mern-ecommerce",
+  "name": "buy-and-sell-at-bphc",
   "version": "1.0.0",
   "description": "ecommerce site",
   "main": "server.js",
@@ -12,10 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ashraf-kabir/mern-ecommerce.git"
+    "url": "https://github.com/neha-gunta/Buy-And-Sell-At-BPHC.git"
   },
   "keywords": [],
-  "author": "Ashraf Kabir",
+  "author": "",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
