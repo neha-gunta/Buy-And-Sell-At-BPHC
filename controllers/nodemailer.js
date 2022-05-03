@@ -12,25 +12,23 @@ User.findByIdAndUpdate(req.body.BuyerID,
   {$push:
     {interested:{name:req.body.productName,id:req.params.productId}
   }},(err,resp)=>{
-    console.log(req.body.productName,req.params.productId)
+    // console.log(req.body.productName,req.params.productId)
     if(err) console.log(err)
-    else console.log(resp);
+    // else console.log(resp);
     
 })
 User.findById(req.body.sellerID,(err,seller)=>{
      sellermail=seller.email;
    sellerName=seller.name
     
-}).then((data)=>{
-
-   
+}).then((data)=>{  
 
 const buyermail=req.body.buyermail
 
 const Buyername=req.body.Buyername
 
 const ProductName=req.body.productName
-
+console.log("-----------",sellermail)
 var sent=false;
 var transporter=nodemailer.createTransport({
     service:"gmail",

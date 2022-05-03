@@ -18,10 +18,12 @@ const Cart = () => {
   const showItems = (items) => {
     return (
       <div>
-        <h2>Your cart has {`${items.length}`} items</h2>
+        <h2>Your Wishlist has {`${items.length}`} items</h2>
         <hr />
+        <div style={{width:"100%",display:"grid",gridTemplateColumns:"  auto auto auto"}}> 
         {items.map((product, i) => (
-          <Card
+          <div style={{width:"400px"}}>
+            <Card
             key={i}
             product={product}
             showAddToCartButton={false}
@@ -29,24 +31,26 @@ const Cart = () => {
             showRemoveProductButton={true}
             setRun={setRun}
             run={run}
-          />
+          /></div>
         ))}
+        </div>
       </div>
     );
   };
 
   const noItemsMessage = () => (
     <h2>
-      Your cart is empty. <br /> <Link to='/shop'>Continue shopping</Link>
+      Your wishlist is empty. <br /> <Link to='/shop'>Continue shopping</Link>
     </h2>
   );
 
   return (
     <Layout
-      title='Shopping Cart'
-      description='Manage your cart items. Add remove checkout or continue shopping.'
+      title='WishList'
+      description='View and manage the products in your wishlist'
       className='container-fluid'
     >
+     
       
           {items.length > 0 ? showItems(items) : noItemsMessage()}
         

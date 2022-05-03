@@ -123,8 +123,8 @@ const Shop = () => {
 
   return (
     <Layout
-      title='Shop page'
-      description='Search and find books'
+      title='Home page'
+      description='Search and find products'
       className='container-fluid'
     >
       <Search />
@@ -132,7 +132,7 @@ const Shop = () => {
         <div className='col-md-3'>
           <h4>Filter by categories</h4>
           <ul>
-            <Checkbox
+            <Checkbox sx={{fontWeight:"600"}}
               categories={categories}
               handleFilters={(filters) => handleFilters(filters, 'category')}
             />

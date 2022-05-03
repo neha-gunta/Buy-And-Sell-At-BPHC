@@ -30,35 +30,52 @@ const Dashboard = () => {
 
   const userLinks = () => {
     return (
-      <div className='card'>
-        <h4 className='card-header'>User links</h4>
+      <div className='card' style={{border:"3px solid grey"}}>
+        
         <ul className='list-group'>
-          <li className='list-group-item'>
+          <li className='list-group-item' style={{backgroundColor:"#F0F0F0"}}>
             <Link className='nav-link' to='/cart'>
-              My wishlist
+            <h5 style={{color:"black"}}>
+              My wishlist</h5>
             </Link>
-
+          </li>
+          <li className='list-group-item'>
+            <Link className='nav-link' to={`/createReq`}>
+            <h5 style={{color:"black"}}>
+              Create Buy Request</h5>
+            </Link>
+          </li>
+          <li className='list-group-item' style={{backgroundColor:"#F0F0F0"}}>
+            <Link className='nav-link' to={`/buyreq/${_id}`}>
+            <h5 style={{color:"black"}}>
+              Manage my Buy Requests</h5>
+            </Link>
           </li>
           <li className='list-group-item'>
             <Link className='nav-link' to='/create/product'>
-              Create product
+            <h5 style={{color:"black"}}>
+              Create product</h5>
             </Link>
           </li>
-          <li className='list-group-item'>
+          <li className='list-group-item' style={{backgroundColor:"#F0F0F0"}}>
             <Link className='nav-link' to='/admin/products'>
-              Manage My Products
+            <h5 style={{color:"black"}}>
+              Manage My Products</h5>
             </Link>
           </li>
           <li className='list-group-item'>
             <Link className='nav-link' to='/user/Interested'>
-              Interested Porducts
+            <h5 style={{color:"black"}}>
+              Interested Porducts</h5>
             </Link>
           </li>
-          <li className='list-group-item'>
+          <li className='list-group-item' style={{backgroundColor:"#F0F0F0"}}>
             <Link className='nav-link' to={`/profile/${_id}`}>
-              Update profile
+            <h5 style={{color:"black"}}>
+              Update profile</h5>
             </Link>
           </li>
+
         </ul>
       </div>
     );
@@ -67,12 +84,12 @@ const Dashboard = () => {
   const userInfo = () => {
     return (
       <div className='card mb-5'>
-        <h3 className='card-header'>User information</h3>
+        <h3 className='card-header'>USER INFORMATION</h3>
         <ul className='list-group'>
-          <li className='list-group-item'>{name}</li>
-          <li className='list-group-item'>{email}</li>
-          <li className='list-group-item'>
-            {role === 1 ? 'Admin' : 'Registered user'}
+          <li className='list-group-item'><h4>{name}</h4></li>
+          <li className='list-group-item'><h5>Email: {email}</h5></li>
+          <li className='list-group-item'><h5>
+            {role === 1 ? 'Admin' : 'Registered user'}</h5>
           </li>
         </ul>
       </div>

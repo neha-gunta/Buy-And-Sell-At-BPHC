@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
 import { Link } from 'react-router-dom';
-import { createProduct, getCategories } from './apiAdmin';
-
-const AddProduct = () => {
+import { createRequest, getCategories } from '../admin/apiAdmin';
+ 
+const AddBuyRequest = () => {
   const { user, token } = isAuthenticated();
   const [values, setValues] = useState({
     name: '',
@@ -12,35 +12,35 @@ const AddProduct = () => {
     price: '',
     categories: [],
     category: '',
-    shipping: '1',
     quantity: '',
-    photo: '',
     loading: false,
     error: '',
-    createdProduct: '',
+    createdRequest: '',
     redirectToProfile: false,
     formData: '',
-    PostOwner:user._id
+    postOwnerDetails:'',
+    postOwnerId:user._id
   });
-
  
-
+ 
+ 
   const {
     name,
     description,
     price,
     categories,
     category,
-    shipping,
     quantity,
     photo,
     loading,
     error,
-    createdProduct,
+    createdRequest,
+    reqSuccess=false,
     redirectToProfile,
     formData,
+    postOwnerDetails
   } = values;
-
+ 
   // load categories and set form data
   const init = () => {
     getCategories().then((data) => {
@@ -55,43 +55,46 @@ const AddProduct = () => {
       }
     });
   };
-
+ 
   useEffect(() => {
     init();
   }, []);
-
+ 
   const handleChange = (name) => (event) => {
     const value = name === 'photo' ? event.target.files[0] : event.target.value;
     formData.set(name, value);
     setValues({ ...values, [name]: value });
   };
-
+ 
   const clickSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, error: '', loading: true });
-    formData.set("PostOwner",user._id)
-    formData.set("shipping",1)
-    createProduct(user._id, token, formData).then((data) => {
-      if (data.error) {
-        setValues({ ...values, error: data.error });
+    formData.set("postOwnerId",user._id)
+    
+    createRequest(user._id, token, values).then((resp) => {
+        console.log(resp.data.name)
+      if (resp.error) {
+        setValues({ ...values, error: resp.error });
       } else {
+          
         setValues({
           ...values,
           name: '',
           description: '',
-          photo: '',
           price: '',
           quantity: '',
           loading: false,
-          createdProduct: data.name,
+          createdRequest: resp.data.name,
+          reqSuccess:true,
+          postOwnerDetails: '',
         });
       }
     });
   };
-
-  const newPostForm = () => (
+ 
+  const newRequestForm = () => (
     <form className='mb-3' onSubmit={clickSubmit}>
-      <h4>Post Photo</h4>
+      {/* <h4>Post Photo</h4>
       <div className='form-group'>
         <label className='btn btn-secondary'>
           <input
@@ -101,8 +104,8 @@ const AddProduct = () => {
             accept='image/*'
           />
         </label>
-      </div>
-
+      </div> */}
+ 
       <div className='form-group'>
         <label className='text-muted'>Name</label>
         <input
@@ -112,7 +115,7 @@ const AddProduct = () => {
           value={name}
         />
       </div>
-
+ 
       <div className='form-group'>
         <label className='text-muted'>Description</label>
         <textarea
@@ -121,7 +124,7 @@ const AddProduct = () => {
           value={description}
         />
       </div>
-
+ 
       <div className='form-group'>
         <label className='text-muted'>Price</label>
         <input
@@ -131,7 +134,7 @@ const AddProduct = () => {
           value={price}
         />
       </div>
-
+ 
       <div className='form-group'>
         <label className='text-muted'>Category</label>
         <select onChange={handleChange('category')} className='form-control'>
@@ -144,16 +147,7 @@ const AddProduct = () => {
             ))}
         </select>
       </div>
-
-      {/* <div className='form-group'>
-        <label className='text-muted'>Shipping</label>
-        <select onChange={handleChange('shipping')} className='form-control'>
-          <option>Please select</option>
-          <option value='0'>No</option>
-          <option value='1'>Yes</option>
-        </select>
-      </div> */}
-
+ 
       <div className='form-group'>
         <label className='text-muted'>Quantity</label>
         <input
@@ -163,11 +157,19 @@ const AddProduct = () => {
           value={quantity}
         />
       </div>
-
-      <button className='btn btn-outline-primary'>Create Product</button>
+    
+      <div className='form-group'>
+        <label className='text-muted'>Your Contact Details</label>
+        <textarea
+          onChange={handleChange('postOwnerDetails')}
+          className='form-control'
+          value={postOwnerDetails}
+        />
+      </div>
+      <button className='btn btn-outline-primary'>Create Request</button>
     </form>
   );
-
+ 
   const showError = () => (
     <div
       className='alert alert-danger'
@@ -176,38 +178,38 @@ const AddProduct = () => {
       {error}
     </div>
   );
-
+ 
   const showSuccess = () => (
     <div
       className='alert alert-info'
-      style={{ display: createdProduct ? '' : 'none' }}
+      style={{ display: reqSuccess ? '' : 'none' }}
     >
-      <h2>{`${createdProduct}`} is created!</h2>
+      <h2>{`${createdRequest}`} is created!</h2>
     </div>
   );
-
+ 
   const showLoading = () =>
     loading && (
       <div className='alert alert-success'>
         <h2>Loading...</h2>
       </div>
     );
-
+ 
   return (
     <Layout
-      title='Add a new product'
-      description={`Hey ${user.name}, ready to add a new product?`}
+      title='Add a new request'
+      //description={`Hey ${user.name}, ready to add a new request?`}
     >
       <div className='row'>
         <div className='col-md-8 offset-md-2'>
           {showLoading()}
           {showSuccess()}
           {showError()}
-          {newPostForm()}
+          {newRequestForm()}
         </div>
       </div>
     </Layout>
   );
 };
-
-export default AddProduct;
+ 
+export default AddBuyRequest;

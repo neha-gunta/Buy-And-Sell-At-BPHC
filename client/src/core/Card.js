@@ -74,7 +74,7 @@ const Card = ({
   const [count, setCount] = useState(product.count);
   
   const { user, token } = isAuthenticated();
- 
+ console.log(product)
 
   const showViewButton = (showViewProductButton) => {
     return (
@@ -165,13 +165,7 @@ const Card = ({
     )
   }
 
-  const showStock = (quantity) => {
-    return quantity > 0 ? (
-      <span className='badge badge-primary badge-pill'>In Stock </span>
-    ) : (
-      <span className='badge badge-primary badge-pill'>Out of Stock </span>
-    );
-  };
+ 
 
   const handleChange = (productId) => (event) => {
     setRun(!run); // run useEffect in parent Cart
@@ -252,7 +246,7 @@ const Card = ({
    
     <Container className={classes.cardGrid} >
       <CssBaseline />
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
+      <Grid container >
       <Grid item xs={12} sm={12} md={12}>
           <CardM className={classes.card}>
             {shouldRedirect(redirect)}
@@ -270,6 +264,14 @@ const Card = ({
               <p className='black-10' style={{fontSize:"12px",margin:"2px",borderRadius:"10%"}}>
                 Category: {product.category && product.category.name}{' '}
               </p>
+              {
+                !showViewProductButton &&
+                 <span>
+                <h5 style={{padding:"1px",margin:"1px"}} >Description:</h5>
+                <p>{product.description}</p>
+                </span>
+              }
+             
              
               <Typography variant="h6" color="text.secondary">
           Cost: Rs.{product.price}
@@ -288,7 +290,7 @@ const Card = ({
                 {viewShowInterestedButton(showInterestedButton)}
                 </span>
               </span>
-              {showCartUpdateOptions(cartUpdate)}
+              {/* {showCartUpdateOptions(cartUpdate)} */}
             </CardContent>
           </CardM>
         </Grid>

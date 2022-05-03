@@ -1,5 +1,6 @@
 const Category = require('../models/category');
 const { errorHandler } = require('../helpers/dbErrorHandler');
+const product = require('../models/product');
 
 exports.categoryById = (req, res, next, id) => {
   Category.findById(id).exec((err, category) => {
@@ -68,3 +69,36 @@ exports.list = (req, res) => {
     res.json(data);
   });
 };
+
+exports.catStats=(req,res)=>{
+    let abc=["lol"]
+  
+ Category.find({},(err,cats)=>{
+   
+     let abc=[]
+    cats.map((x)=>{
+      
+      product.aggregate([
+        {$match:{"category":(x._id)}},
+        {$count:`${x.name}`}
+      ],(err,data)=>{
+        
+        if(err) res.send(err)
+        else {
+          console.log(data[0])
+          add(data[0])}
+      })
+          
+    })
+    const add=(data)=>{
+      abc.push(data)
+      console.log(abc)
+      if(abc.length==cats.length) res.send(abc)
+    }
+    
+      
+  })
+
+  
+ 
+}

@@ -14,6 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import ArticleIcon from "@material-ui/icons/NoteSharp"
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Button from '@material-ui/core/Button';
@@ -272,17 +273,23 @@ const MaterialAppBar = ({ history }) => {
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Link style={isActive(history, '/')} to='/'>
+            {/* <Link style={isActive(history, '/')} to='/'>
               <IconButton aria-label='Home' color='inherit'>
                 <HomeIcon />
                 <Typography noWrap>Home</Typography>
               </IconButton>
-            </Link>
+            </Link> */}
 
             <Link style={isActive(history, '/shop')} to='/shop'>
               <IconButton aria-label='Shop' color='inherit'>
                 <StorefrontIcon />
-                <Typography noWrap>Shop</Typography>
+                <Typography noWrap>Home</Typography>
+              </IconButton>
+            </Link>
+            <Link style={isActive(history, '/buyreq')} to='/buyreq'>
+              <IconButton aria-label='Shop' color='inherit'>  
+              <ArticleIcon />              
+                <Typography noWrap>Requests</Typography>
               </IconButton>
             </Link>
 

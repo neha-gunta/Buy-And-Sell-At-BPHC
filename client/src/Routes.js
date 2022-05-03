@@ -21,12 +21,17 @@ import PostItemPage from './core/PostItemPage';
 import Interested from './user/Interested';
 import ManageUsers from './admin/ManageUsers';
 import Stats from './admin/Stats';
+import AddBuyRequest from './user/AddBuyReq';
+import BuyRequest from './user/BuyReq';
+import ManageReq from './user/ManageReq';
+
+import UpdateReq from './user/UpdateReq';
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path='/' component={Home} exact />
+        <Route path='/' component={Shop} exact />
         
         <Route path="/user/Interested" component={Interested} exact />
         <Route path='/shop' component={Shop} exact />
@@ -42,13 +47,16 @@ const Routes = () => {
         <AdminRoute path='/admin/orders' component={Orders} exact />
         <PrivateRoute path='/profile/:userId' component={Profile} exact />
         <Route path='/admin/products' component={ManageProducts} exact />
+        <Route path='/createReq' component={AddBuyRequest} exact />
+        <Route path='/buyreq' component={BuyRequest} exact />
         <Route
           path='/admin/product/update/:productId'
           component={UpdateProduct}
           exact
         />
         <Route path="/admin/stats" component={Stats} exact />
-        
+        <Route path="/buyreq/:userid" component={ManageReq} exact />
+        <Route path="/updateReq/:id" component={UpdateReq} exact />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

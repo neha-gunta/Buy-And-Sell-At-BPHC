@@ -148,3 +148,14 @@ export const getInterestedProds = (id) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const getBuyRequests = () => {
+  
+  return fetch(`${API}/getAllReq`, {
+    method: 'GET',
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .catch((err) => console.log(err));
+};

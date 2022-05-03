@@ -1,0 +1,21 @@
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 40vmax;
+    margin: 10px;
+    text-align: center;
+    font-family: arial;
+    padding:5px;
+   display: -moz-inline-grid;
+   grid-column:  span 3;
+
+   
+  }
+  
+  .price {
+    color: grey;
+    font-size: 22px;
+  }
+  
+  .card:hover {
+    opacity: 0.7;
+  }

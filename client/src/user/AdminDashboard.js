@@ -3,7 +3,7 @@ import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth';
 import { Link } from 'react-router-dom';
 import {Line} from "react-chartjs-2"
-import Stats from '../admin/Stats';
+
 const AdminDashboard = () => {
   const {
     user: { _id, name, email, role },
@@ -11,30 +11,34 @@ const AdminDashboard = () => {
 
   const adminLinks = () => {
     return (
-      <div className='card'>
-        <h4 className='card-header'>Admin Links</h4>
+      <div className='card' style={{border:"3px solid grey"}}>
+        
         <ul className='list-group'>
-          <li className='list-group-item'>
+          <li className='list-group-item' style={{backgroundColor:"#F0F0F0"}}>
             <Link className='nav-link' to='/create/category'>
-              Create category
+            <h5 style={{color:"black"}}>
+              Create Category</h5>
             </Link>
           </li>
                     
           <li className='list-group-item'>
-            <Link className='nav-link' to='/admin/products'>
-              Manage Products
+          <Link className='nav-link' to='/admin/products'>
+            <h5 style={{color:"black"}}>
+              Manage Products</h5>
+            </Link>
+          </li>
+          <li className='list-group-item' style={{backgroundColor:"#F0F0F0"}}>
+            <Link className='nav-link' to='/admin/users'>
+            <h5 style={{color:"black"}}>
+              Manage Users</h5>
             </Link>
           </li>
           <li className='list-group-item'>
-            <Link className='nav-link' to='/admin/users'>
-              Manage Users
+            <Link className='nav-link' to='/admin/stats'>
+            <h5 style={{color:"black"}}>
+              Statistics</h5>
             </Link>
           </li>
-          {/* <li className='list-group-item'>
-            <Link className='nav-link' to='/admin/stats'>
-              Statistics
-            </Link>
-          </li> */}
 
         </ul>
       </div>
@@ -44,12 +48,12 @@ const AdminDashboard = () => {
   const adminInfo = () => {
     return (
       <div className='card mb-5'>
-        <h3 className='card-header'>User information</h3>
+        <h3 className='card-header'>USER INFORMATION</h3>
         <ul className='list-group'>
-          <li className='list-group-item'>{name}</li>
-          <li className='list-group-item'>{email}</li>
-          <li className='list-group-item'>
-            {role === 1 ? 'Admin' : 'Registered user'}
+          <li className='list-group-item'><h4>{name}</h4></li>
+          <li className='list-group-item'><h5>Email: {email}</h5></li>
+          <li className='list-group-item'><h5>
+            {role === 1 ? 'Admin' : 'Registered user'}</h5>
           </li>
         </ul>
       </div>

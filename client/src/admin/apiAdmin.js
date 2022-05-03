@@ -1,4 +1,5 @@
 import { API } from '../config';
+import Axios from 'axios';
 
 export const createCategory = (userId, token, category) => {
   return fetch(`${API}/category/create/${userId}`, {
@@ -146,3 +147,9 @@ export const updateProduct = (productId, userId, token, product) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const createRequest=(id,token,body)=>{
+ return Axios.post(`${API}/createReq`,body).then((resp)=>{
+    return resp
+  })
+}
