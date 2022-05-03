@@ -1,4 +1,4 @@
-# mern-ecommerce
+# Buy and Sell At BPHC
 
 > Frontend-> React JS
 
@@ -9,7 +9,7 @@
 ## Installation process
 1. #### clone the repo using this command
     ```bash
-    git clone https://github.com/ashraf-kabir/mern-ecommerce.git
+    git clone 
     ```
 2. #### install npm packages
     1. install backend packages
