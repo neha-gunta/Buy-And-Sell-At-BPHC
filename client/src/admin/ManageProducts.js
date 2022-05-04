@@ -73,7 +73,7 @@ const loadProducts = () => {
               >
                 <a href={`/product/${p.id}`} ><h4 style={{color:"black"}}>{p.name}</h4></a> 
                 <span style={{padding:"10px"}}>
-                {user.role==1 &&
+                {user.role==0 &&
                 <Link to={`/admin/product/update/${p._id}`}>
                   
                   <span style={{backgroundColor:"black",color:"white",padding:"5px",margin:"10px",borderRadius:"5px"}}>Update</span>

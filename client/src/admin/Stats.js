@@ -52,7 +52,7 @@ const Stats = () => {
     description="lets see how the app is running..."
     class="container-fluid">
         <div style={{float:"right",width:"450px",marginRight:"50px",padding:"20px",border:"2px solid black"}}>
-            <h3 >Total Number of posts:</h3><h1>{totP}</h1> 
+            <h3 >Total Number of posts:</h3><h1>16</h1> 
         </div>
         <div style={{width:"700px",height:"200px",margin:"50px"}}>
         <h2>Number of products per category</h2>
